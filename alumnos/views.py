@@ -4,24 +4,33 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 # Create your views here.
 
 
-clase = {
-    'inglés': 'Clase de Inglés',
-    'Frances': 'Clase de Frances',
-    'Español': 'Clase de Español'
+clases = {
+    "ingles": 'Clase de Inglés',
+    "hola": "esto es una nueva prueba",
+    "frances": 'Clase de Francés',
+    "español": 'Clase de Español'
 }
 
 
-def clases_day(request, clase):
-    clases = list(clase.keys())
-    if clase > len(clases):
-        return HttpResponse('Clase no existe')
-    redirect_clase = clases[clase]
-    return HttpResponseRedirect(f'/alumnos/clase{redirect_clase}')
-
-def clases(request, clase):
-
+def clases_dayNew(request, claseNew):
+    days = list(clases.keys())
+    # Convertir claseNew a entero si viene como string
     try:
-        alumno_text = clase[clase]
-        return HttpResponse(alumno_text)
-    except:
-        return HttpResponseNotFound('No existe esta clase')
+        clase_index = int(claseNew)
+    except (ValueError, TypeError):
+        return HttpResponse('Índice de clase inválido')
+
+    # Verificar que el índice esté dentro del rango válido
+    if clase_index < 0 or clase_index >= len(days):
+        return HttpResponse('Clase no existe')
+
+    redirect_clase = days[clase_index]
+    return HttpResponseRedirect(f'/alumnos/{redirect_clase}/')
+
+
+def alumnos(request, alumnos):  # Cambia claseNew por alumnos
+    try:
+        alumno_text = clases[alumnos]
+        return HttpResponse(f'<h1>{alumno_text}</h1>')
+    except KeyError:
+        return HttpResponseNotFound('<h1>No existe esta clase</h1>')
