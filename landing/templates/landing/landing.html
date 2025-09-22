@@ -1,11 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Templates N°1</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Landing Page
+{% endblock %}
+
+{% block content %}
     <h1>Esto es un nuevo archivo HTML</h1>
     <h2>Nombre: {{nombre | upper | title}}</h2>
     <p>Edad: {{edad}}</p>
@@ -28,5 +27,4 @@
         {% endfor %}
     </ul>
 
-</body>
-</html>
+{% endblock %}
