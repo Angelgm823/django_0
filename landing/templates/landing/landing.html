@@ -3,12 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Templates N°1</title>
 </head>
 <body>
     <h1>Esto es un nuevo archivo HTML</h1>
-    <h2>Nombre: {{nombre | upper}}</h2>
+    <h2>Nombre: {{nombre | upper | title}}</h2>
     <p>Edad: {{edad}}</p>
     <p>Fecha: {{fecha | date:'d/m/Y'}}</p>
+
+    {% if nombre == 'Angl' %}
+        <h1>Hola</h1>
+    {% elif nombre == 'Erick' %}
+        <h2>esta correcto</h2>
+    {% else %}
+        <h3> Eres nuevo aqui</h3>
+    {% endif %}
+
+    <p>Lista for:</p>
+    <ul>
+        {% for tool in stack %}
+        <li><a href="{% url 'stack' tool.id %}"> {{tool.name}}</a></li>
+        {% empty %}
+            <li>No existe</li>
+        {% endfor %}
+    </ul>
+
 </body>
 </html>
