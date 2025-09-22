@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1> Esto es un nueva página para los cursos</h1>
+
+    <h2>Esto es una nueva lista para un for tag: </h2>
+    <ul>
+        {% for tool in cursosde %}
+            <li><a href="{% url 'cursosde' tool.descripcion %}">{{tool.id}}</a></li>
+        {% empty %}
+            <p>Esto no existe o no esta disponible</p>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
