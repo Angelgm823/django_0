@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, Http404
 
 # Create your views here.
 
@@ -33,4 +33,6 @@ def alumnos(request, alumnos):  # Cambia claseNew por alumnos
         alumno_text = clases[alumnos]
         return HttpResponse(f'<h1>{alumno_text}</h1>')
     except KeyError:
-        return HttpResponseNotFound('<h1>No existe esta clase</h1>')
+        #return HttpResponseNotFound('<h1>No existe esta clase</h1>')
+        return render(request, '404.html')
+        #raise Http404() # Cuando esta en producción
