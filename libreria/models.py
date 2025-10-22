@@ -24,6 +24,11 @@ class Libros(models.Model):
     paginas = models.IntegerField()
     isbn = models.CharField(max_length=60)
     generos = models.ManyToManyField(Genero, related_name='libros')
+    recomendacion_by = models.ManyToManyField(get_user_model(), through='Recomendaciones', related_name='libros_recomendados')
+
+class Meta:
+    verbose_name = 'Libro'
+    verbose_name_plural = 'Libros'
 
     def __str__(self):
         return self.titulo
@@ -56,3 +61,13 @@ class Prestamo(models.Model):
 
      def __str__(self):
          return f'{self.usuario} -> {self.libro.titulo} ({'Devuelto' if self.estado else 'Prestado'})'
+
+
+class Recomendaciones(models.Model):
+    usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    libro = models.ForeignKey(Libros, on_delete=models.CASCADE)
+    recomendacion_at = models.DateTimeField(auto_now_add=True)
+    nota = models.TextField(blank=True)
+
+    class Meta:
+        unique_together = ('usuario', 'libro')
